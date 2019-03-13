@@ -6,7 +6,7 @@ import java.util.Map;
  * @author Gyumin Kim
  * @since 2019-03-10
  */
-public class ApiResponse {
+public class ApiResponseDto {
 
   private boolean success;
   private String timestamp;
