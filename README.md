@@ -7,7 +7,7 @@
 - ZIP 파일을 다운로드 받습니다.
 - 혹은, repository를 clone해도 됩니다.
 ```
-> git clone https://github.com/gyumin-kim/wire-barley-coding-test
+> git clone https://github.com/gyumin-kim/currency-converter.git
 ```
 - `src/main/resources`에 `application.properties` 파일을 생성하고, 다음의 설정값들을 적어줍니다.
   - access-key
