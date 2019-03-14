@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,13 +33,7 @@ public class MainController {
   }
 
   @GetMapping("/submit")
-  public ResponseEntity<?> submit(@Valid @ModelAttribute InputDto inputDto,
-      BindingResult result) {
-
-    if (result.hasErrors()) {
-      return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-    }
-
+  public ResponseEntity<?> submit(@Valid @ModelAttribute InputDto inputDto) {
     return new ResponseEntity<>(mainService.getReceipt(inputDto), HttpStatus.OK);
   }
 }
