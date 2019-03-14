@@ -30,7 +30,7 @@ submitBtn.addEventListener('click', () => {
         if (res.ok) {
           res.text().then(reception => {
             let result = document.querySelector('#result');
-            result.innerHTML = `수취금액은 ${reception} 입니다.`
+            result.innerHTML = `수취금액은 ${reception} ${recipientCountry} 입니다.`
           })
         } else if (res.status === 400) {
           alert('송금액이 바르지 않습니다')
