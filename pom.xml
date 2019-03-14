@@ -13,7 +13,7 @@
   <artifactId>currency-converter</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>currency-converter</name>
-  <description>WireBarley coding test project</description>
+  <description>Calculate the wiring amount by fetching the exchange rate of the selected currency.</description>
 
   <properties>
     <java.version>1.8</java.version>

@@ -4,13 +4,13 @@ select.addEventListener('change', () => {
 
   fetch(`/api/rate?currency=${selectedValue}`, {
     method: 'GET',
-  }).then((res) => {
+  }).then(res => {
     res.text().then(text => {
       let currencyFromApi = text;
       let currency = document.querySelector('#currency');
-      currency.querySelector('span').innerHTML = `${currencyFromApi} ${selectedValue}/USD`;
+      currency.querySelector('span').innerHTML = `${currencyFromApi} ${selectedValue}/USD`
     })
-  });
+  })
 });
 
 let submitBtn = document.querySelector('#submit-btn');
@@ -30,14 +30,16 @@ submitBtn.addEventListener('click', () => {
         if (res.ok) {
           res.text().then(reception => {
             let result = document.querySelector('#result');
-            result.innerHTML = `수취금액은 ${reception} 입니다.`;
+            result.innerHTML = `수취금액은 ${reception} 입니다.`
           })
         } else if (res.status === 400) {
-          alert('송금액이 바르지 않습니다');
+          alert('송금액이 바르지 않습니다')
+        } else if (res.status === 500) {
+          alert('서버 점검 중입니다')
         }
       }).catch(err => {
-        console.log(err);
+        console.log(err)
       })
     })
-  });
+  })
 });

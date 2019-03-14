@@ -41,12 +41,6 @@ public class MainController {
       return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
     }
 
-    //TODO: 에러 처리 모듈화
-    try {
-      return ResponseEntity.ok(mainService.getReceipt(inputDto));
-    } catch (Exception e) {
-      e.printStackTrace();
-      return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(mainService.getReceipt(inputDto), HttpStatus.OK);
   }
 }
