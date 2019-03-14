@@ -30,7 +30,7 @@ public class MainController {
 
   @GetMapping("/rate")
   public ResponseEntity<?> getExchangeRate(@RequestParam String currency) {
-    return ResponseEntity.ok(mainService.getExchangeRateFromApi(currency));
+    return new ResponseEntity<>(mainService.getExchangeRateFromApi(currency), HttpStatus.OK);
   }
 
   @GetMapping("/submit")
