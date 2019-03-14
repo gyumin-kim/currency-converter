@@ -25,28 +25,31 @@ public class MainService {
   @Value("${access-key}")
   private String accessKey;
 
+  @Value("${currencies}")
+  private String currencies;
+
   public MainService(RestTemplateBuilder builder) {
     this.restTemplate = builder.build();
   }
 
-  public String getCurrencies(String currency) {
+  /**
+   * /달러 환율
+   * 만약 {@param country}가 KRW라면, KRW/USD(원/달러) 환율을 리턴한다.
+   *
+   * @param country 국가명
+   * @return 해당 국가 화폐/달러 환율
+   */
+  public String getExchangeRateFromApi(String country) {
     ApiResponseDto apiResponseDto = restTemplate
-        .getForObject(url + accessKey + "&currencies=KRW,JPY,PHP", ApiResponseDto.class);
+        .getForObject(url + accessKey + "&currencies=" + currencies, ApiResponseDto.class);
 
     assert apiResponseDto != null;
-    double response = apiResponseDto.getQuotes().get("USD" + currency);
+    double response = apiResponseDto.getQuotes().get("USD" + country);
     return new DecimalFormat("#,###,###,###.00").format(response);
   }
 
-//  public double getCurrenciesRaw(String currency) {
-//    ApiResponseDto apiResponseDto = restTemplate
-//        .getForObject(url + accessKey + "&currencies=KRW,JPY,PHP", ApiResponseDto.class);
-//    assert apiResponseDto != null;
-//    return apiResponseDto.getQuotes().get("USD" + currency);
-//  }
-
   /**
-   * 수취금액을 계산하여 리턴한다.
+   * 최종 수취금액을 계산하여 리턴한다.
    *
    * @param inputDto 수취국가, 환율, 송금액
    * @return 환율과 송금액의 곱

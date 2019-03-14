@@ -28,22 +28,17 @@ public class MainController {
     this.mainService = mainService;
   }
 
-  @GetMapping("/currencies")
+  @GetMapping("/rate")
   public ResponseEntity<?> getExchangeRate(@RequestParam String currency) {
-    return ResponseEntity.ok(mainService.getCurrencies(currency));
+    return ResponseEntity.ok(mainService.getExchangeRateFromApi(currency));
   }
-
-//  @GetMapping("/currencies/raw")
-//  public ResponseEntity<?> getExchangeRateRaw(@RequestParam String currency) {
-//    return ResponseEntity.ok(mainService.getCurrenciesRaw(currency));
-//  }
 
   @GetMapping("/submit")
   public ResponseEntity<?> submit(@Valid @ModelAttribute InputDto inputDto,
       BindingResult result) {
 
     if (result.hasErrors()) {
-      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
     }
 
     //TODO: 에러 처리 모듈화

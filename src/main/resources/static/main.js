@@ -2,7 +2,7 @@ let select = document.querySelector('#recipient-country');
 select.addEventListener('change', () => {
   let selectedValue = select.options[select.selectedIndex].value;
 
-  fetch(`/api/currencies?currency=${selectedValue}`, {
+  fetch(`/api/rate?currency=${selectedValue}`, {
     method: 'GET',
   }).then((res) => {
     res.text().then(text => {
@@ -18,7 +18,7 @@ submitBtn.addEventListener('click', () => {
   let recipientCountry = select.options[select.selectedIndex].value;
   let wiringAmounts = parseFloat(document.querySelector('#wiring-amounts').value);
 
-  fetch(`/api/currencies?currency=${recipientCountry}`, {
+  fetch(`/api/rate?currency=${recipientCountry}`, {
     method: 'GET',
   }).then(res => {
     res.text().then(exchangeRate => {
@@ -26,15 +26,13 @@ submitBtn.addEventListener('click', () => {
       fetch(`/api/submit?recipientCountry=${recipientCountry}
               &exchangeRate=${exchangeRate}&wiringAmounts=${wiringAmounts}`, {
         method: 'GET',
-      }).then((res) => {
+      }).then(res => {
         if (res.ok) {
           res.text().then(reception => {
             let result = document.querySelector('#result');
             result.innerHTML = `수취금액은 ${reception} 입니다.`;
           })
-        } else if (res.status === 400 || res.status === 500) {
-          console.log(res.statusText);
-          console.log(res);
+        } else if (res.status === 400) {
           alert('송금액이 바르지 않습니다');
         }
       }).catch(err => {
