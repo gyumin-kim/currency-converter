@@ -38,12 +38,12 @@ public class MainService {
     return new DecimalFormat("#,###,###,###.00").format(response);
   }
 
-  public double getCurrenciesRaw(String currency) {
-    ApiResponseDto apiResponseDto = restTemplate
-        .getForObject(url + accessKey + "&currencies=KRW,JPY,PHP", ApiResponseDto.class);
-    assert apiResponseDto != null;
-    return apiResponseDto.getQuotes().get("USD" + currency);
-  }
+//  public double getCurrenciesRaw(String currency) {
+//    ApiResponseDto apiResponseDto = restTemplate
+//        .getForObject(url + accessKey + "&currencies=KRW,JPY,PHP", ApiResponseDto.class);
+//    assert apiResponseDto != null;
+//    return apiResponseDto.getQuotes().get("USD" + currency);
+//  }
 
   /**
    * 수취금액을 계산하여 리턴한다.

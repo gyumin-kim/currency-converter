@@ -12,12 +12,21 @@ public class WiringAmountsValidator implements
 
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
-    return value != null && Double.parseDouble(value) >= 0.0
+    return value != null && isNumeric(value)
+        && Double.parseDouble(value) >= 0.0
         && Double.parseDouble(value) <= 10000.0;
-        //TODO: "바른 숫자인지 검사" 추가
   }
 
   @Override
   public void initialize(WiringAmountsConstraint constraintAnnotation) {
+  }
+
+  private boolean isNumeric(String value) {
+    try {
+      Double.parseDouble(value);
+      return true;
+    } catch (NumberFormatException e){
+      return false;
+    }
   }
 }

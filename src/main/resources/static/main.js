@@ -27,11 +27,19 @@ submitBtn.addEventListener('click', () => {
               &exchangeRate=${exchangeRate}&wiringAmounts=${wiringAmounts}`, {
         method: 'GET',
       }).then((res) => {
-        res.text().then(reception => {
-          let result = document.querySelector('#result');
-          result.innerHTML = `수취금액은 ${reception} 입니다.`;
-        })
-      });
+        if (res.ok) {
+          res.text().then(reception => {
+            let result = document.querySelector('#result');
+            result.innerHTML = `수취금액은 ${reception} 입니다.`;
+          })
+        } else if (res.status === 400 || res.status === 500) {
+          console.log(res.statusText);
+          console.log(res);
+          alert('송금액이 바르지 않습니다');
+        }
+      }).catch(err => {
+        console.log(err);
+      })
     })
   });
 });

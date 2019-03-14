@@ -33,10 +33,10 @@ public class MainController {
     return ResponseEntity.ok(mainService.getCurrencies(currency));
   }
 
-  @GetMapping("/currencies/raw")
-  public ResponseEntity<?> getExchangeRateRaw(@RequestParam String currency) {
-    return ResponseEntity.ok(mainService.getCurrenciesRaw(currency));
-  }
+//  @GetMapping("/currencies/raw")
+//  public ResponseEntity<?> getExchangeRateRaw(@RequestParam String currency) {
+//    return ResponseEntity.ok(mainService.getCurrenciesRaw(currency));
+//  }
 
   @GetMapping("/submit")
   public ResponseEntity<?> submit(@Valid @ModelAttribute InputDto inputDto,
