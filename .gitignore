@@ -25,4 +25,4 @@ HELP.md
 /.nb-gradle/
 /build/
 
-.properties
+application.properties

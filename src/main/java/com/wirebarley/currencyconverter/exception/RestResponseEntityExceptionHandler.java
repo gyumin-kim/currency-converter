@@ -22,6 +22,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return new ResponseEntity<>("잘못된 입력입니다.", HttpStatus.BAD_REQUEST);
   }
 
+  //TODO: API상의 문제로 지연시간이 길어질 경우에 대한 예외처리가 있으면 좋을 것 같다.
   @ExceptionHandler(value = { InternalException.class })
   public ResponseEntity<?> serverException(RuntimeException e) {
     e.printStackTrace();

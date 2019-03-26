@@ -3,7 +3,6 @@ package com.wirebarley.currencyconverter.service;
 import com.wirebarley.currencyconverter.dto.ApiResponseDto;
 import com.wirebarley.currencyconverter.dto.InputDto;
 import java.text.DecimalFormat;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
  * @since 2019-03-10
  */
 @Service
-@Slf4j
 public class MainService {
 
   private RestTemplate restTemplate;
@@ -45,7 +43,7 @@ public class MainService {
 
     assert apiResponseDto != null;
     double response = apiResponseDto.getQuotes().get("USD" + country);
-    return new DecimalFormat("#,###,###,###.00").format(response);
+    return new DecimalFormat("#,##0.00").format(response);
   }
 
   /**
@@ -56,6 +54,6 @@ public class MainService {
    */
   public String getReceipt(InputDto inputDto) {
     double result = Double.parseDouble(inputDto.getExchangeRate()) * Double.parseDouble(inputDto.getWiringAmounts());
-    return new DecimalFormat("#,###,###,###.00").format(result);
+    return new DecimalFormat("#,##0.00").format(result);
   }
 }
