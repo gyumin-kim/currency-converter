@@ -3,8 +3,13 @@ package com.wirebarley.currencyconverter.service;
 import com.wirebarley.currencyconverter.dto.ApiResponseDto;
 import com.wirebarley.currencyconverter.dto.InputDto;
 import java.text.DecimalFormat;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,8 +31,27 @@ public class MainService {
   @Value("${currencies}")
   private String currencies;
 
-  public MainService(RestTemplateBuilder builder) {
-    this.restTemplate = builder.build();
+  public MainService(RestTemplateBuilder restTemplateBuilder) {
+//    Duration duration = Duration.ofSeconds(30);
+//    this.restTemplate = restTemplateBuilder
+//                        .setConnectTimeout(duration)
+//                        .setReadTimeout(duration)
+//                        .build();
+    this.restTemplate = new RestTemplate(getClientHttpRequestFactory());
+  }
+
+  private ClientHttpRequestFactory getClientHttpRequestFactory() {
+    int timeout = 5000;
+    RequestConfig config = RequestConfig.custom()
+        .setConnectTimeout(timeout)
+        .setConnectionRequestTimeout(timeout)
+        .setSocketTimeout(timeout)
+        .build();
+    CloseableHttpClient client = HttpClientBuilder
+        .create()
+        .setDefaultRequestConfig(config)
+        .build();
+    return new HttpComponentsClientHttpRequestFactory(client);
   }
 
   /**
@@ -53,7 +77,8 @@ public class MainService {
    * @return 환율과 송금액의 곱
    */
   public String getReceipt(InputDto inputDto) {
-    double result = Double.parseDouble(inputDto.getExchangeRate()) * Double.parseDouble(inputDto.getWiringAmounts());
+    double result = Double.parseDouble(inputDto.getExchangeRate())
+                    * Double.parseDouble(inputDto.getWiringAmounts());
     return new DecimalFormat("#,##0.00").format(result);
   }
 }

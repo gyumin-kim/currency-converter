@@ -1,4 +1,4 @@
-let select = document.querySelector('#recipient-country');
+const select = document.querySelector('#recipient-country');
 select.addEventListener('change', () => {
   let selectedValue = select.options[select.selectedIndex].value;
 
@@ -13,7 +13,7 @@ select.addEventListener('change', () => {
   })
 });
 
-let submitBtn = document.querySelector('#submit-btn');
+const submitBtn = document.querySelector('#submit-btn');
 submitBtn.addEventListener('click', () => {
   let recipientCountry = select.options[select.selectedIndex].value;
   let wiringAmounts = parseFloat(document.querySelector('#wiring-amounts').value);
